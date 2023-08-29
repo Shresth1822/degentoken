@@ -49,3 +49,6 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 ## Compiling and Deploying
 
 Compile and Deploy the smart contract using Remix IDE and you can then interact with the various functions present and burn and mint DegenTokens
+
+## Author
+Shresth Varshney
