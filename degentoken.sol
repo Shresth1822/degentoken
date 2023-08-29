@@ -7,12 +7,12 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
 contract DegenGaming is ERC20, Ownable, ERC20Burnable
 {
-    mapping(string => uint) public item_Price;
-    event Item_Redeem(address indexed player, string item);
+    mapping(string => uint) public itemPrices;
+    event ItemRedeem(address indexed player, string item);
 
     constructor() ERC20("Degen Token", "DGT") 
     {
-        mint_Tokens(msg.sender, 100*10**decimals());
+        mintTokens(msg.sender, 100*10**decimals());
     }
 
     function mintTokens(address to, uint amount) public onlyOwner
@@ -22,7 +22,7 @@ contract DegenGaming is ERC20, Ownable, ERC20Burnable
 
     function transferTokens(address receiver, uint amount) external
     {
-        require(balanceOf(msg.sender) >= amount, "You don't have enough funds");
+        require(balanceOf(msg.sender) >= amount, "You do not have enough funds");
         approve(msg.sender, amount);
         transferFrom(msg.sender, receiver, amount);
     }
@@ -32,9 +32,9 @@ contract DegenGaming is ERC20, Ownable, ERC20Burnable
        return balanceOf(msg.sender);
     }
 
-    function add_Item(string memory item, uint price) public only_Owner 
+    function addItem(string memory item, uint price) public onlyOwner 
     {
-        require(price > 0, "Price can't be zero");
+        require(price > 0, "Price cannot be zero");
         itemPrices[item] = price;
     }
 
