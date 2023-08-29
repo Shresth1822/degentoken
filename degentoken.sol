@@ -5,48 +5,58 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 
-contract DegenToken is ERC20, Ownable, ERC20Burnable 
+contract DegenGaming is ERC20, Ownable, ERC20Burnable
 {
-    mapping(string => uint256) private _itemPrices;
-    event ItemRedeemed(address indexed player, string item);
+    mapping(string => uint) public item_Price;
+    event Item_Redeem(address indexed player, string item);
 
-    constructor() ERC20("Degen token", "DGT") {
-        _mint(msg.sender, 100 * 10**decimals());
+    constructor() ERC20("Degen Token", "DGT") 
+    {
+        mint_Tokens(msg.sender, 100*10**decimals());
     }
 
-    function mintTokens(address recipient, uint256 amount) public onlyOwner {
-        _mint(recipient, amount);
+    function mintTokens(address to, uint amount) public onlyOwner
+    {
+        _mint(to, amount);
     }
 
-    function transferTokens(address receiver, uint256 amount) external {
-        require(balanceOf(msg.sender) >= amount, "Insufficient funds");
+    function transferTokens(address receiver, uint amount) external
+    {
+        require(balanceOf(msg.sender) >= amount, "You don't have enough funds");
         approve(msg.sender, amount);
         transferFrom(msg.sender, receiver, amount);
     }
 
-    function checkAccountBalance() external view returns (uint256) {
-        return balanceOf(msg.sender);
+    function checkBalance() external view returns(uint)
+    {
+       return balanceOf(msg.sender);
     }
 
-    function addItemToStore(string memory itemName, uint256 price) public onlyOwner {
-        require(price > 0, "Price cannot be zero");
-        _itemPrices[itemName] = price;
+    function add_Item(string memory item, uint price) public only_Owner 
+    {
+        require(price > 0, "Price can't be zero");
+        itemPrices[item] = price;
     }
 
-    function getItemPrice(string memory itemName) public view returns (uint256) {
-        return _itemPrices[itemName];
+    function getPrice(string memory item) public view returns (uint) 
+    {
+        return itemPrices[item];
     }
 
-    function burnToken(uint256 amount) external {
-        require(balanceOf(msg.sender) >= amount, "Insufficient funds");
+    function burnTokens(uint amount) external
+    {
+        require(balanceOf(msg.sender) >= amount, "Insufficient Funds");
         _burn(msg.sender, amount);
     }
 
-    function redeemItem(string memory itemName) public {
-        require(_itemPrices[itemName] > 0, "Item not available for redemption");
-        require(balanceOf(msg.sender) >= _itemPrices[itemName], "Insufficient balance");
+    function redeem(string memory item) public 
+    {
+        require(itemPrices[item] > 0, "Item not available for redemption");
+        require(balanceOf(msg.sender) >= itemPrices[item], "Insufficient balance");
 
-        _transfer(msg.sender, owner(), _itemPrices[itemName]);
-        emit ItemRedeemed(msg.sender, itemName);
+        _transfer(msg.sender, owner(), itemPrices[item]);
+        emit ItemRedeem(msg.sender, item);
     }
+
+    
 }
