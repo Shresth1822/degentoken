@@ -37,7 +37,6 @@ Any token holder can burn their own tokens if they are no longer needed. The bur
 It will check the available tokens and the price and if the coditions are met it will transact the token to the user's account address
 
 ## Importing Dependencies
-
 You have to import the following dependencies to run and deploy this smart contract
 
 ```solidity
@@ -46,9 +45,21 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 ```
 
-## Compiling and Deploying
+## IDE
+REMIX: The Native IDE for Web3 Development. [ https://remix-project.org/ ]
 
-Compile and Deploy the smart contract using Remix IDE and you can then interact with the various functions present and burn and mint DegenTokens
+## Contract Details
+-Solidity Version: ^0.8.18
+-License: MIT
+
+## Execution of the program
+-Copy the code from this Github Repo
+-Verify the solidity version and compile the code.
+-Deploy the smart contract and play around.
+-You can interact with the various functions present and burn and mint DegenTokens.
 
 ## Author
 Shresth Varshney
+
+## License
+This project is licensed under the MIT License.
